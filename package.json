@@ -1,0 +1,21 @@
+{
+  "name": "volume-dial",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pubnub": "^4.29.2",
+    "qrcode-terminal": "^0.12.0",
+    "system-control": "^0.1.1",
+    "win-audio": "^2.0.2"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
