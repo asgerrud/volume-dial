@@ -15,64 +15,15 @@
         <div id="VolumeTicks"></div>
       </div>
     </main>
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.js"
-      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-      crossorigin="anonymous"
-    ></script>
-    <script src="js/jogDial.js"></script>
-    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.28.4.min.js"></script>
-    <script src="js/PubNub/config.js"></script>
+    <script src="js/dial.js"></script>
     <script src="js/main.js"></script>
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
     <script>
-      const START_VOLUME = 50;
-      const INCREMENT = 5;
-      const MIN_DEG = 180;
-      const MAX_DEG = 360 + MIN_DEG;
-      const START_DEG = percentToDegree(START_VOLUME, MIN_DEG, MAX_DEG);
-      const NUM_TICKS = 100 / INCREMENT;
-
-      var VolumeDial = {
-        id: "VolumeDial",
-        volume: START_VOLUME,
-        activeTicks: 0
-      };
-
-      const config = {
-        debug: false,
-        touchMode: "wheel",
-        knobSize: "30px",
-        wheelSize: "200px",
-        zIndex: 9999,
-        degreeStartAt: 90,
-        minDegree: MIN_DEG,
-        maxDegree: MAX_DEG
-      };
-
-      const dial = JogDial(document.getElementById(VolumeDial.id), config).on(
-        "mousemove",
-        function(e) {
-          handleVolumeChange(e.target.rotation, MIN_DEG, MAX_DEG);
-        }
-      );
-
-      const renderVolumeTicks = numberOfTicks => {
-        let parent = $("#VolumeTicks");
-        let rotationIncrement = 360 / numberOfTicks;
-        let startRotation = -rotationIncrement;
-        let rotation = startRotation + 180;
-
-        for (let i = 0; i < numberOfTicks; i++) {
-          let newRotation = rotation + rotationIncrement;
-          parent.append(
-            `<div class="tick" style="transform: rotate(${newRotation}deg)"></div>`
-          );
-          rotation = newRotation;
-        }
-      };
-
-      renderVolumeTicks(NUM_TICKS);
-      dial.angle(START_DEG);
+      const socket = io();
+      socket.on('system-volume', volume => {
+        handleVolumeChange(volume, false);
+        setDial(volume);
+      });
     </script>
   </body>
 </html>

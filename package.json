@@ -10,8 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "loudness": "^0.4.1",
     "pubnub": "^4.29.2",
     "qrcode-terminal": "^0.12.0",
+    "socket.io": "^4.4.1",
     "system-control": "^0.1.1",
     "win-audio": "^2.0.2"
   },
